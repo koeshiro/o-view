@@ -30,8 +30,8 @@
 		else return false;
 	}
 	//Templater
-	Templater=function (templat,object,context){
-		this.Temp=this.render(templat,object); this.raw=t; this.context=context;
+	Templater=function (template,object,context){
+		this.Temp=this.render(template,object); this.raw=template; this.context=context;
 		return this;
 	}
 	Templater.prototype.render=function(t,o){
