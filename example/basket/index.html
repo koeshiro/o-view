@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>Корзина</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css/style.css"/>
+		<script type="text/javascript" src="js/object-observe.min.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../view.js"></script>
+	</head>
+	<body>
+		<div class="basket"></div>
+		<script type="text/template" class="basket-template">
+			<div class="modal-bg basket-window width100 height100 fixed" align="center">
+				<div class="container relative height100">
+					<div class="modal basket-body absolute">
+						<form action="/">
+							<table class="width100">
+								<thead>
+									<tr>
+										<td>№</td>
+										<td>Изображение</td>
+										<td>Название</td>
+										<td>Количество</td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<@
+									var i=0;
+										for(var k in basket['list']){
+											i++;
+											each('<tr>');
+											each('<td><input type="hidden" name="id[]" value="'+basket['list'][k]['id']+'" />'+i+'</td>');
+											each('<td><img src="'+basket['list'][k]['image']+'" class="max-width100" /></td>');
+											each('<td>'+basket['list'][k]['name']+'</td>');
+											each('<td class="num-trigger">\
+													<div class="minus inline-block">-</div>\
+													<input type="text" value="'+basket['list'][k]['number']+'" name="num" class="inline-block number" />\
+													<div class="plus inline-block">+</div>\
+													<div class="clear"></div>\
+												</td>');
+											each('<td data-index="'+k+'"><div class="remove"><i class="remove-icon"></i></div></td>');
+											each('</tr>');
+										}
+									@>
+								</tbody>
+							</table>
+							<div class="width50 float-right">
+								<input type="submit" value="ЗАКАЗАТЬ" class="basket-submit" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type="text/javascript">
+			var data={};
+			data['basket']={};
+			data['basket']['list']=[];
+			var i=0,n=20;
+			while(i<n){
+				data['basket']['list'].push({
+					'id':Math.floor(Math.random()*200),
+					'image':'https://pp.vk.me/c543106/v543106447/a91f/NxSr8h7sfds.jpg',
+					'name':'Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text, Some text',
+					'number':Math.floor(Math.random()*20)
+					});
+				i++;
+			}
+			var t=new Templater(document.querySelector('.basket-template').innerHTML,data);
+			document.querySelector('.basket').innerHTML=t;
+		</script>
+	</body>
+</html>
