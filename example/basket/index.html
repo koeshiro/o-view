@@ -26,24 +26,24 @@
 									</tr>
 								</thead>
 								<tbody>
-									<@
+									<%
 									var i=0;
 										for(var k in basket['list']){
 											i++;
-											each('<tr>');
-											each('<td><input type="hidden" name="id[]" value="'+basket['list'][k]['id']+'" />'+i+'</td>');
-											each('<td><img src="'+basket['list'][k]['image']+'" class="max-width100" /></td>');
-											each('<td>'+basket['list'][k]['name']+'</td>');
-											each('<td class="num-trigger">\
+											echo('<tr>');
+											echo('<td><input type="hidden" name="id[]" value="'+basket['list'][k]['id']+'" />'+i+'</td>');
+											echo('<td><img src="'+basket['list'][k]['image']+'" class="max-width100" /></td>');
+											echo('<td>'+basket['list'][k]['name']+'</td>');
+											echo('<td class="num-trigger">\
 													<div class="minus inline-block">-</div>\
 													<input type="text" value="'+basket['list'][k]['number']+'" name="num" class="inline-block number" />\
 													<div class="plus inline-block">+</div>\
 													<div class="clear"></div>\
 												</td>');
-											each('<td data-index="'+k+'"><div class="remove"><i class="remove-icon"></i></div></td>');
-											each('</tr>');
+											echo('<td data-index="'+k+'"><div class="remove"><i class="remove-icon"></i></div></td>');
+											echo('</tr>');
 										}
-									@>
+									%>
 								</tbody>
 							</table>
 							<div class="width50 float-right">
@@ -69,7 +69,8 @@
 				i++;
 			}
 			var t=new Templater(document.querySelector('.basket-template').innerHTML,data);
-			document.querySelector('.basket').innerHTML=t;
+			console.log(t.Temp);
+			document.querySelector('.basket').innerHTML=t.toString();
 		</script>
 	</body>
 </html>

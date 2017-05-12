@@ -3,33 +3,27 @@
 	<head>
 		<title></title>
 		<meta charset="utf-8">
-		<script src="./object-observe.min.js" type="text/javascript"></script>
 		<script src="../../view.js" type="text/javascript"></script>
+		<script src="../../example/basket/js/jquery.min.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<div id="todo"></div>
-		<script type="text/template" id="todo-temp">
-			<ul>
-				<@
-					for(var k in list){
-						each('<li>'+(list[k]['active']?list[k]['text']:"<b>"+list[k]['text']+"</b>")+'</li>\n');
-					}
-				@>
-			</ul>
-			<input type="text" name="add" /><div class="add">add</div>
+		<div id="todo">
+		</div>
+		<script type="text/view" id="temp">
+		<ul>
+			<% for(var k in list){ %>
+			<li> <% echo(list[k]['active']?list[k]['text']:"<b>"+list[k]['text']+"</b>"); %>  </li>
+			<% } %>
+		</ul>
+		<input type="text" name="add" /><div class="add" onclick="add()">add</div>
+		<%
+		var e=document.querySelector('#todo'),temp=this;
+		add=function(){data['list'][data['list'].length]={'text':document.querySelector("[name='add']").value,'active':false};e.innerHTML=temp.ReRender(data);};
+		%>
 		</script>
 		<script type="text/javascript">
-			var data={'list':[{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true}]},temp=new Templater(document.querySelector('#todo-temp').innerHTML,data);
-			document.querySelector('#todo').innerHTML=temp;
-			document.querySelector('.add').onclick=function(){
-				data['list'].push({"text":document.querySelector('[name="add"]').value,'active':false});
-			}
-			Object.observe(data['list'],function(){
-				document.querySelector('#todo').innerHTML=temp.rerender(data);
-				document.querySelector('.add').onclick=function(){
-					data['list'].push({"text":document.querySelector('[name="add"]').value});
-				}
-			});
+			var data={'list':[{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true},{"text":'1234','active':true}]};
+			document.querySelector('#todo').innerHTML=new Templater(document.querySelector('#temp').innerHTML,data).Render();
 		</script>
 	</body>
 </html>
